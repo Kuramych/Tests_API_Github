@@ -1,6 +1,8 @@
 package appmanager;
 
 import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -15,6 +17,10 @@ import static org.hamcrest.Matchers.*;
 
 public class ApiHelper {
 
+    public ApiHelper() {
+        RestAssured.filters(new AllureRestAssured());
+    }
+
     RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder()
             .setBaseUri("https://api.github.com/")
             .setContentType(ContentType.JSON)
@@ -28,7 +34,6 @@ public class ApiHelper {
             .log(LogDetail.ALL)
             .build();
 
-
     ResponseSpecification errorResponseSpec404 = new ResponseSpecBuilder()
             .expectStatusCode(404)
             .build();
@@ -36,15 +41,19 @@ public class ApiHelper {
     ResponseSpecification errorResponseSpec500 = new ResponseSpecBuilder()
             .expectStatusCode(500)
             .build();
-    @Step("Отправляем API запрос на {0}. В запросе присутствует спецификация ответа normalResponseSpec, которая включает в себя " +
-            "проверку на код 200 и на непустое тело ответа.")
+
+    @Step("Проверка ответа на код 200 и непустое тело.")
     public Response sendGet(String url) {
         return constructorSendGet(url, normalResponseSpec);
     }
 
-    @Step("Отправляем API запрос на {0}. В запросе присутствует спецификация ответа errorResponseSpec, которая включает в себя " +
-            "проверку на код 404 и на пустое тело ответа.")
-    public Response sendGetWithErrorResponse(String url) {
+    @Step("Проверка ответа на код 404 и пустое тело.")
+    public Response sendGetWithError404(String url) {
+        return constructorSendGet(url, errorResponseSpec404);
+    }
+
+    @Step("Проверка ответа на код 500 и пустое тело.")
+    public Response sendGetWithError500(String url) {
         return constructorSendGet(url, errorResponseSpec404);
     }
 
