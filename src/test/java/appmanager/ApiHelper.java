@@ -42,6 +42,7 @@ public class ApiHelper {
             .expectStatusCode(500)
             .build();
 
+    @Step("Выполнен Get {0}")
     public Response sendGet(String url) {
         return constructorSendGet(url, normalResponseSpec);
     }
@@ -54,6 +55,7 @@ public class ApiHelper {
         return constructorSendGet(url, errorResponseSpec404);
     }
 
+    @Step("Пройдена проверка на код 200 и пустое тело.")
     private Response constructorSendGet(String url, ResponseSpecification responseSpec) {
         return given()
                 .spec(requestSpec)
