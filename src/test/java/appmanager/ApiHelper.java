@@ -42,17 +42,14 @@ public class ApiHelper {
             .expectStatusCode(500)
             .build();
 
-    @Step("Проверка ответа на код 200 и непустое тело.")
     public Response sendGet(String url) {
         return constructorSendGet(url, normalResponseSpec);
     }
 
-    @Step("Проверка ответа на код 404 и пустое тело.")
     public Response sendGetWithError404(String url) {
         return constructorSendGet(url, errorResponseSpec404);
     }
 
-    @Step("Проверка ответа на код 500 и пустое тело.")
     public Response sendGetWithError500(String url) {
         return constructorSendGet(url, errorResponseSpec404);
     }

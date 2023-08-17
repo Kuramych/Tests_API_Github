@@ -1,7 +1,8 @@
 package tests;
 
-import appmanager.DataHelper;
+import appmanager.ApiSteps;
 import appmanager.PropertiesHelper;
+import appmanager.UrlSteps;
 import io.qameta.allure.Feature;
 import io.qameta.allure.testng.AllureTestNg;
 import model.Repository;
@@ -22,7 +23,9 @@ import java.util.*;
 public class SelenideApiTests {
 
     public PropertiesHelper propertiesHelper = new PropertiesHelper();
-    public DataHelper dataHelper = new DataHelper();
+    public ApiSteps apiSteps = new ApiSteps();
+    public UrlSteps urlSteps = new UrlSteps();
+
 
     public SelenideApiTests() throws IOException {
         propertiesHelper.loadProperties();
@@ -43,15 +46,14 @@ public class SelenideApiTests {
     }
 
     @Test(description = "Получение всех репозиториев, расположенных на заданном репозитории.")
-    public void testGetRepositoriesListFromSelenide() throws IOException {
-        List<String> RepositoriesNames = dataHelper.getRepositoriesNamesWithAs(propertiesHelper.getProperty("gitUrl"));
-        dataHelper.getRepositoriesUrl(RepositoriesNames);
+    public void testGetRepositoriesListFromSelenide() {
+        apiSteps.getRepositoriesFromResponse(propertiesHelper.getProperty("gitUrl"));
     }
 
     @Test(dataProvider = "validUrls", description = "Отправка API запроса из файла src/test/resources/urls.csv. Сравнивнение API ответа с реальной информацией, полученной из ссылки путем сплита.")
     public void testCompareInfoFromRepositories(String repositoryUrl)  {
-        Repository repositoryFromResponse = dataHelper.getRepositoryFromResponse(repositoryUrl, Repository.class);
-        Repository repositoryFromSplitUrl = dataHelper.getRepository(repositoryUrl);
+        Repository repositoryFromResponse = apiSteps.getRepositoryFromResponse(repositoryUrl, Repository.class);
+        Repository repositoryFromSplitUrl = urlSteps.getRepository(repositoryUrl);
         Assert.assertEquals(repositoryFromResponse, repositoryFromSplitUrl);
     }
 }
