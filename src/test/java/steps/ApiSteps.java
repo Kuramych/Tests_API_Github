@@ -1,6 +1,6 @@
-package stepmanager;
+package steps;
 
-import appmanager.ApiHelper;
+import http.ApiHelper;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import model.Repository;
@@ -10,17 +10,19 @@ import java.util.List;
 
 public class ApiSteps {
 
-    public ApiHelper apiHelper = new ApiHelper();
+    public static ApiHelper apiHelper = new ApiHelper();
 
-    @Step("Отправление API запроса на имя {0} и парсинг информации с ответа к виду {1}.")
-    public <Model> Model getRepositoryFromResponse(String organisationName, Class<Model> cls) {
-        Response response = apiHelper.sendGet(organisationName);
+    @Step("Получен репозиторий организации {0}")
+    public static <Model> Model getRepositoryFromResponse(String organisationName, Class<Model> cls) {
+        String apiUrl = String.format("repos/%s", organisationName);
+        Response response = apiHelper.sendGet(apiUrl);
+        apiHelper.responseCheck(response);
         Model repository = response.getBody().as(cls);
         return repository;
     }
 
     @Step("Получен список всех репозиториев организации {0}.")
-    public List<Repository> getRepositoriesFromResponse(String organisationName) {
+    public static List<Repository> getRepositoriesFromResponse(String organisationName) {
         String apiUrl = String.format("users/%s/repos", organisationName);
         Response response = apiHelper.sendGet(apiUrl);
         apiHelper.responseCheck(response);

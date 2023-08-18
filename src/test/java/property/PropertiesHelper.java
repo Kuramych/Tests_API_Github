@@ -1,4 +1,4 @@
-package appmanager;
+package property;
 
 import java.io.*;
 import java.util.Properties;

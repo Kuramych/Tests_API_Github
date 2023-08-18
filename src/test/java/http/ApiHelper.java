@@ -1,5 +1,6 @@
-package appmanager;
+package http;
 
+import property.PropertiesHelper;
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
@@ -18,8 +19,8 @@ import static org.hamcrest.Matchers.*;
 
 public class ApiHelper {
 
-    PropertiesHelper propertiesHelper = new PropertiesHelper();
-    private RestAssuredConfig restAssuredConfig;
+    PropertiesHelper propertiesHelper = PropertiesHelper.getInstance();
+
     public ApiHelper() {
         RestAssured.filters(new AllureRestAssured());
     }
