@@ -1,4 +1,4 @@
-package helpermanager;
+package appmanager;
 
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
@@ -11,7 +11,6 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import tests.SelenideApiTests;
 
 
 import static io.restassured.RestAssured.given;
@@ -26,7 +25,6 @@ public class ApiHelper {
     }
 
     RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder()
-            //.setBaseUri("https://api.github.com/")
             .setBaseUri(propertiesHelper.getProperty("githubBaseApiResponse"))
             .setContentType(ContentType.JSON)
             .addHeader("Accept", ContentType.JSON.toString())

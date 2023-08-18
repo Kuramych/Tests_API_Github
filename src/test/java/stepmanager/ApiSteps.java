@@ -1,6 +1,6 @@
 package stepmanager;
 
-import helpermanager.ApiHelper;
+import appmanager.ApiHelper;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import model.Repository;

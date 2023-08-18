@@ -1,8 +1,7 @@
 package tests;
 
-import org.testng.annotations.BeforeClass;
 import stepmanager.ApiSteps;
-import helpermanager.PropertiesHelper;
+import appmanager.PropertiesHelper;
 import stepmanager.UrlSteps;
 import io.qameta.allure.Feature;
 import io.qameta.allure.testng.AllureTestNg;
@@ -28,7 +27,6 @@ public class SelenideApiTests {
 
     public SelenideApiTests() throws IOException {
         propertiesHelper = PropertiesHelper.getInstance();
-        propertiesHelper.loadProperties();
     }
 /*
     @DataProvider
