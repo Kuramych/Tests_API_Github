@@ -22,7 +22,8 @@ public class ApiSteps {
 
     @Step("Получен список всех репозиториев организации {0}.")
     public List<Repository> getRepositoriesFromResponse(String organisationName) {
-        Response response = apiHelper.sendGet(organisationName);
+        String apiUrl = String.format("users/%s/repos", organisationName);
+        Response response = apiHelper.sendGet(apiUrl);
         Repository[] repositories = response.as(Repository[].class);
         return List.of(repositories);
     }

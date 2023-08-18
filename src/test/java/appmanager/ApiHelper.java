@@ -26,6 +26,8 @@ public class ApiHelper {
             .setContentType(ContentType.JSON)
             .addHeader("Accept", ContentType.JSON.toString())
             .log(LogDetail.ALL);
+
+
     RequestSpecification requestSpec = requestSpecBuilder.build();
 
     ResponseSpecification normalResponseSpec= new ResponseSpecBuilder()
@@ -47,10 +49,12 @@ public class ApiHelper {
         return constructorSendGet(url, normalResponseSpec);
     }
 
+    @Step("Выполнен Get {0}")
     public Response sendGetWithError404(String url) {
         return constructorSendGet(url, errorResponseSpec404);
     }
 
+    @Step("Выполнен Get {0}")
     public Response sendGetWithError500(String url) {
         return constructorSendGet(url, errorResponseSpec404);
     }

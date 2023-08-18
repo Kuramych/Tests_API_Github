@@ -47,12 +47,12 @@ public class SelenideApiTests {
 
     @Test(description = "Получение всех репозиториев, расположенных на заданном репозитории.")
     public void testGetRepositoriesListFromSelenide() {
-        apiSteps.getRepositoriesFromResponse(propertiesHelper.getProperty("selenideUrl"));
+        apiSteps.getRepositoriesFromResponse("selenide");
     }
 
-    @Test(description = "Получение всех репозиториев, расположенных на seleniumUrl")
+    @Test
     public void testGetRepositoriesListFromSelenium() {
-        apiSteps.getRepositoriesFromResponse(propertiesHelper.getProperty("seleniumUrl"));
+        apiSteps.getRepositoriesFromResponse("selenium");
     }
 
     @Test(dataProvider = "validUrls", description = "Отправка API запроса из файла src/test/resources/urls.csv. Сравнивнение API ответа с реальной информацией, полученной из ссылки путем сплита.")
