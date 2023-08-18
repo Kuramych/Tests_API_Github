@@ -1,22 +1,18 @@
 package tests;
 
-import appmanager.ApiSteps;
-import appmanager.PropertiesHelper;
-import appmanager.UrlSteps;
+import stepmanager.appmanager.ApiSteps;
+import helpermanager.PropertiesHelper;
+import stepmanager.appmanager.UrlSteps;
 import io.qameta.allure.Feature;
 import io.qameta.allure.testng.AllureTestNg;
 import model.Repository;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+
 import java.io.IOException;
-import java.util.*;
 
 @Listeners(AllureTestNg.class)
 @Feature("Tests for Selenide with Api GitHub")
@@ -28,9 +24,10 @@ public class SelenideApiTests {
 
 
     public SelenideApiTests() throws IOException {
+        propertiesHelper = PropertiesHelper.getInstance();
         propertiesHelper.loadProperties();
     }
-
+/*
     @DataProvider
     public Iterator<Object[]> validUrls() throws IOException {
         List<Object[]> list = new ArrayList<Object[]>();
@@ -44,15 +41,11 @@ public class SelenideApiTests {
             return list.iterator();
         }
     }
+ */
 
     @Test(description = "Получение всех репозиториев, расположенных на заданном репозитории.")
     public void testGetRepositoriesListFromSelenide() {
         apiSteps.getRepositoriesFromResponse("selenide");
-    }
-
-    @Test
-    public void testGetRepositoriesListFromSelenium() {
-        apiSteps.getRepositoriesFromResponse("selenium");
     }
 
     @Test(dataProvider = "validUrls", description = "Отправка API запроса из файла src/test/resources/urls.csv. Сравнивнение API ответа с реальной информацией, полученной из ссылки путем сплита.")

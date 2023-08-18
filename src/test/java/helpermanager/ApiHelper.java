@@ -1,4 +1,4 @@
-package appmanager;
+package helpermanager;
 
 import io.qameta.allure.Step;
 import io.qameta.allure.restassured.AllureRestAssured;
@@ -46,27 +46,12 @@ public class ApiHelper {
 
     @Step("Выполнен Get {0}")
     public Response sendGet(String url) {
-        return constructorSendGet(url, normalResponseSpec);
+        return given().spec(requestSpec).get(url);
     }
 
-    @Step("Выполнен Get {0}")
-    public Response sendGetWithError404(String url) {
-        return constructorSendGet(url, errorResponseSpec404);
-    }
-
-    @Step("Выполнен Get {0}")
-    public Response sendGetWithError500(String url) {
-        return constructorSendGet(url, errorResponseSpec404);
-    }
-
-    @Step("Пройдена проверка на код 200 и пустое тело.")
-    private Response constructorSendGet(String url, ResponseSpecification responseSpec) {
-        return given()
-                .spec(requestSpec)
-                .get(url)
-                .then()
-                .spec(responseSpec)
-                .extract().response();
+    @Step("Выполнена проверка ответа на код 200 и непустое тело")
+    public void responseCheck(Response response) {
+        response.then().spec(normalResponseSpec);
     }
 }
 
