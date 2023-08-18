@@ -5,11 +5,13 @@ import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import tests.SelenideApiTests;
 
 
 import static io.restassured.RestAssured.given;
@@ -17,12 +19,15 @@ import static org.hamcrest.Matchers.*;
 
 public class ApiHelper {
 
+    PropertiesHelper propertiesHelper = new PropertiesHelper();
+    private RestAssuredConfig restAssuredConfig;
     public ApiHelper() {
         RestAssured.filters(new AllureRestAssured());
     }
 
     RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder()
-            .setBaseUri("https://api.github.com/")
+            //.setBaseUri("https://api.github.com/")
+            .setBaseUri(propertiesHelper.getProperty("githubBaseApiResponse"))
             .setContentType(ContentType.JSON)
             .addHeader("Accept", ContentType.JSON.toString())
             .log(LogDetail.ALL);

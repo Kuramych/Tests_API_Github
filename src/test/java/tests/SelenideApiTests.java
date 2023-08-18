@@ -1,8 +1,9 @@
 package tests;
 
-import stepmanager.appmanager.ApiSteps;
+import org.testng.annotations.BeforeClass;
+import stepmanager.ApiSteps;
 import helpermanager.PropertiesHelper;
-import stepmanager.appmanager.UrlSteps;
+import stepmanager.UrlSteps;
 import io.qameta.allure.Feature;
 import io.qameta.allure.testng.AllureTestNg;
 import model.Repository;
@@ -18,9 +19,11 @@ import java.io.IOException;
 @Feature("Tests for Selenide with Api GitHub")
 public class SelenideApiTests {
 
-    public PropertiesHelper propertiesHelper = new PropertiesHelper();
+
+    public PropertiesHelper propertiesHelper;
     public ApiSteps apiSteps = new ApiSteps();
     public UrlSteps urlSteps = new UrlSteps();
+
 
 
     public SelenideApiTests() throws IOException {

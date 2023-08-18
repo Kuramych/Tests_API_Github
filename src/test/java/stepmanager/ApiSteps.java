@@ -1,4 +1,4 @@
-package stepmanager.appmanager;
+package stepmanager;
 
 import helpermanager.ApiHelper;
 import io.qameta.allure.Step;
