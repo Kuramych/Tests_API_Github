@@ -13,11 +13,11 @@ public class ApiSteps {
     public static ApiHelper apiHelper = new ApiHelper();
 
     @Step("Получен репозиторий организации {0}")
-    public static <Model> Model getRepositoryFromResponse(String organisationName, Class<Model> cls) {
+    public static Repository getRepositoryFromResponse(String organisationName) {
         String apiUrl = String.format("repos/%s", organisationName);
         Response response = apiHelper.sendGet(apiUrl);
         apiHelper.responseCheck(response);
-        Model repository = response.getBody().as(cls);
+        Repository repository = response.as(Repository.class);
         return repository;
     }
 

@@ -21,22 +21,18 @@ public class SelenideApiTests {
     List<Repository> data = new ArrayList<>();
 
     @DataProvider(name="repositoryList")
-    public Iterator<Object[]> repositoryList() {
-        List<Object[]> list = new ArrayList<>();
-        for (Repository repository : data) {
-            list.add(new Object[] {repository});
-        }
-        return list.iterator();
+    public Iterator<Repository> repositoryList() {
+        return data.iterator();
     }
 
-    @Test(description = "Получение всех репозиториев, расположенных на заданном репозитории.")
+    @Test(description = "Взятие всех репозиториев организации selenide.")
     public void test1GetRepositoriesListFromSelenide() {
         data = ApiSteps.getRepositoriesFromResponse("selenide");
     }
 
-    @Test(dataProvider = "repositoryList", description = "Проверка, что параметры name и full_name совпадает с действительностью.")
+    @Test(dataProvider = "repositoryList", description = "Сравнение действительной информации и информации с ответа.")
     public void test2CompareInfoFromRepositories(Repository repositoryFromList)  {
-        Repository repositoryFromResponse = ApiSteps.getRepositoryFromResponse(repositoryFromList.getFull_name(), Repository.class);
+        Repository repositoryFromResponse = ApiSteps.getRepositoryFromResponse(repositoryFromList.getFull_name());
         Assert.assertEquals(repositoryFromList, repositoryFromResponse);
     }
 }
