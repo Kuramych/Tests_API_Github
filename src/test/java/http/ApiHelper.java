@@ -20,10 +20,6 @@ public class ApiHelper {
 
     PropertiesHelper propertiesHelper = PropertiesHelper.getInstance();
 
-    public ApiHelper() {
-        RestAssured.filters(new AllureRestAssured());
-    }
-
     RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder()
             .setBaseUri(propertiesHelper.getProperty("githubBaseApiResponse"))
             .setContentType(ContentType.JSON)

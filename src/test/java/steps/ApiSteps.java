@@ -17,8 +17,7 @@ public class ApiSteps {
         String apiUrl = String.format("repos/%s", organisationName);
         Response response = apiHelper.sendGet(apiUrl);
         apiHelper.responseCheck(response);
-        Repository repository = response.as(Repository.class);
-        return repository;
+        return response.as(Repository.class);
     }
 
     @Step("Получен список всех репозиториев организации {0}.")
